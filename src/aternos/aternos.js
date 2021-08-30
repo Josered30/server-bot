@@ -134,22 +134,20 @@ async function connect(id, req) {
     time = new Date();
 
   try {
+    console.log("sdfsd");
     browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox"],
     });
 
+    console.log("sdfsd");
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
-
+    console.log("sdfsd");
     await page.goto(startPage);
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
     await page.click("#login");
-
-    
-
-    console.log("sdfsd")
 
     await page.waitForFunction(
       () => {
@@ -164,7 +162,6 @@ async function connect(id, req) {
     if (error) {
       throw error;
     }
-   
 
     const server = await findServer(page, id);
 
@@ -183,7 +180,6 @@ async function connect(id, req) {
     }
 
     info = await getServerInfo(page);
-
 
     if (req) {
       await req(page, info);
