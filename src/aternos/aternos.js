@@ -129,17 +129,17 @@ async function sleep(time) {
 
 async function connect(id, req) {
   const startPage = hostname + "/go";
-
-  
   let browser,
     info,
     time = new Date();
 
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox"],
-    });
+    browser = await puppeteer
+      .launch({
+        headless: true,
+        args: ["--no-sandbox"],
+      })
+      .catch((e) => console.log(e));
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
