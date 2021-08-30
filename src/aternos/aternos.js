@@ -148,9 +148,7 @@ async function connect(id, req) {
     await page.goto(startPage);
 
     await page.type("#user", process.env.ATERNOS_USER);
-    
     await page.type("#password", process.env.ATERNOS_PASSWORD);
-
     await page.click("#login");
 
     await page.waitForFunction(
@@ -189,8 +187,9 @@ async function connect(id, req) {
       await req(page, info);
     }
   } catch (error) {
-    info.error = error.message;
+    console.log("fgrfds");
     console.log(error);
+    info.error = error.message;
   } finally {
     if (browser) {
       await browser.close();
