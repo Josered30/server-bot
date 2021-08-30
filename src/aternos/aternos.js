@@ -138,8 +138,7 @@ async function connect(id, req) {
       .launch({
         headless: true,
         args: ["--no-sandbox"],
-      })
-      .catch((e) => console.log(e));
+      }).catch((e) => console.log(e));
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
