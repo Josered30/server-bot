@@ -24,7 +24,7 @@ async function messageManage(client, message, prefix) {
         embed = new MessageEmbed()
           .setTitle("Server Information")
           .setDescription(
-            `Name: ${info.name}\n Status: ${info.status.text}\n Version: ${info.version}, Address: ${info.name}.aternos.me`
+            `Name: ${info.name}\n Status: ${info.status.text}\n Version: ${info.version}\n Address: ${info.name}.aternos.me`
           )
           .setColor("#d32256");
         message.channel.send({ embeds: [embed] });

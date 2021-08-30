@@ -135,7 +135,10 @@ async function connect(id, req) {
     time = new Date();
 
   try {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"],
+    });
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
@@ -170,7 +173,6 @@ async function connect(id, req) {
       server.click(),
     ]);
 
-  
     const choices = await page.$("#accept-choices");
     if (choices) {
       await choices.click();
@@ -295,4 +297,3 @@ export async function getHostname(id) {
     return `${info.name}.aternos.me`;
   } catch (error) {}
 }
-
