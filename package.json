@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",

@@ -177,7 +177,9 @@ async function connect(id, req) {
       await choices.click();
     }
 
-    info = await getServerInfo(page).catch((e) => console.log(e));
+    info = await getServerInfo(page);
+
+    console.log("dsadsad");
 
     if (req) {
       await req(page, info);
