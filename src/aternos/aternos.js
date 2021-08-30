@@ -160,6 +160,7 @@ async function connect(id, req) {
     if (error) {
       throw error;
     }
+    console.log("dsadsad");
 
     const server = await findServer(page, id);
 
@@ -179,7 +180,6 @@ async function connect(id, req) {
 
     info = await getServerInfo(page);
 
-    console.log("dsadsad");
 
     if (req) {
       await req(page, info);
