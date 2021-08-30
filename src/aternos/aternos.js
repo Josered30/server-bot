@@ -147,6 +147,8 @@ async function connect(id, req) {
     await page.type("#password", process.env.ATERNOS_PASSWORD);
     await page.click("#login");
 
+
+    
     console.log("wdawd");
 
     await page.waitForFunction(
