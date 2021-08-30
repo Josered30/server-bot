@@ -134,11 +134,10 @@ async function connect(id, req) {
     time = new Date();
 
   try {
-    browser = await puppeteer
-      .launch({
-        headless: true,
-        args: ["--no-sandbox"],
-      }).catch((e) => console.log(e));
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"],
+    });
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
@@ -178,7 +177,7 @@ async function connect(id, req) {
       await choices.click();
     }
 
-    info = await getServerInfo(page);
+    info = await getServerInfo(page).catch((e) => console.log(e));
 
     if (req) {
       await req(page, info);
