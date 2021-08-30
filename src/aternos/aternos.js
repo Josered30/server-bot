@@ -147,6 +147,8 @@ async function connect(id, req) {
     await page.type("#password", process.env.ATERNOS_PASSWORD);
     await page.click("#login");
 
+    console.log("wdawd");
+
     await page.waitForFunction(
       () => {
         let le = document.querySelector("div.login-error");
@@ -160,7 +162,7 @@ async function connect(id, req) {
     if (error) {
       throw error;
     }
-    console.log("dsadsad");
+   
 
     const server = await findServer(page, id);
 
