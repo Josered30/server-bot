@@ -146,11 +146,12 @@ async function connect(id, req) {
     console.log(process.env.ATERNOS_PASSWORD);
 
     await page.goto(startPage);
+    console.log("sdfsd");
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
-    
+    console.log("sdfsd");
     await page.click("#login");
-    
+
     console.log("sdfsd");
 
     await page.waitForFunction(
