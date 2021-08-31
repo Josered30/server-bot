@@ -4,6 +4,15 @@ import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
 
 puppeteer.use(stealthPlugin());
 
+const randomUseragent = require("random-useragent");
+const proxyChain = require("proxy-chain");
+
+const USER_AGENT =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36";
+
+const oldProxyUrl = process.env.PROXY_SERVER;
+const newProxyUrl = await proxyChain.anonymizeProxy(oldProxyUrl);
+
 const hostname = "https://aternos.org";
 
 const to = {
@@ -135,14 +144,28 @@ async function connect(id, req) {
 
   try {
     browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: true,
+      executablePath: process.env.CHROME_BIN || null,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        `--proxy-server=${newProxyUrl}`,
+      ],
+      ignoreHTTPSErrors: true,
+      dumpio: false,
     });
-    
+
+    const userAgent = randomUseragent.getRandom();
+    const UA = userAgent || USER_AGENT;
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(startPage);
+
+    await page.setUserAgent(UA);
+    await page.setJavaScriptEnabled(true);
+    await page.setDefaultNavigationTimeout(0);
 
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
@@ -162,7 +185,6 @@ async function connect(id, req) {
       throw error;
     }
 
-    
     const server = await findServer(page, id);
 
     if (!server) {
@@ -185,7 +207,6 @@ async function connect(id, req) {
       await req(page, info);
     }
   } catch (error) {
-    console.log("fgrfds");
     console.log(error);
     info.error = error.message;
   } finally {
