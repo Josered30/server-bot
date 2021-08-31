@@ -143,6 +143,7 @@ async function connect(id, req) {
     });
 
     const page = await browser.newPage();
+    
     await page.setUserAgent(randomUserAgent.getRandom());
     await page.setViewport({ width: 1920, height: 1080 });
 
