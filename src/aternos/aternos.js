@@ -138,14 +138,11 @@ async function connect(id, req) {
     browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
-    
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(startPage);
-
-    console.log(await page.content());
 
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
@@ -164,7 +161,6 @@ async function connect(id, req) {
     if (error) {
       throw error;
     }
-
 
     const server = await findServer(page, id);
 
