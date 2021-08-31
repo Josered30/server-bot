@@ -22,7 +22,7 @@
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-stealth": "^2.7.8",
     "rimraf": "^3.0.2",
-    "user-agent": "^1.0.4"
+    "user-agents": "^1.0.760"
   },
   "engines": {
     "node": "16.x"

@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import stealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
-import userAgent from "user-agent";
+import UserAgent from "user-agents";
 
 puppeteer.use(stealthPlugin());
 
@@ -133,6 +133,8 @@ async function connect(id, req) {
   let browser,
     info,
     time = new Date();
+
+  const userAgent = new UserAgent();
 
   try {
     browser = await puppeteer.launch({
