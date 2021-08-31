@@ -161,6 +161,7 @@ async function connect(id, req) {
     if (error) {
       throw error;
     }
+
     
     const server = await findServer(page, id);
 
