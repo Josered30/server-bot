@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import stealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
-import UserAgent from "user-agents";
+import randomUserAgert from "random-useragent";
 
 puppeteer.use(stealthPlugin());
 
@@ -134,7 +134,7 @@ async function connect(id, req) {
     info,
     time = new Date();
 
-  const userAgent = new UserAgent();
+  
 
   try {
     browser = await puppeteer.launch({
@@ -142,7 +142,7 @@ async function connect(id, req) {
     });
 
     const page = await browser.newPage();
-    await page.setUserAgent(userAgent.toString());
+    await page.setUserAgent(randomUseragent.getRandom());
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(startPage);
