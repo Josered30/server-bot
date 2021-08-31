@@ -141,9 +141,6 @@ async function connect(id, req) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
-    console.log(process.env.ATERNOS_USER);
-    console.log(process.env.ATERNOS_PASSWORD);
-
     await page.goto(startPage);
 
     await page.type("#user", process.env.ATERNOS_USER);
