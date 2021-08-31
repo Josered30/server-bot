@@ -134,8 +134,9 @@ async function connect(id, req) {
     info,
     time = new Date();
 
-  
 
+
+    
   try {
     browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
