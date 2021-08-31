@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import stealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
-import randomUserAgert from "random-useragent";
+import randomUserAgent from "random-useragent";
 
 puppeteer.use(stealthPlugin());
 
