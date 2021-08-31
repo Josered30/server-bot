@@ -151,8 +151,6 @@ async function connect(id, req) {
 
     await page.goto(startPage);
 
-    page.content().then(console.log);
-
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
     await page.click("#login");
