@@ -1,17 +1,13 @@
 import puppeteer from "puppeteer-extra";
 import stealthPlugin from "puppeteer-extra-plugin-stealth";
+import randomUseragent from "random-useragent";
+import proxyChain from "proxy-chain";
 import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
 
 puppeteer.use(stealthPlugin());
 
-const randomUseragent = require("random-useragent");
-const proxyChain = require("proxy-chain");
-
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36";
-
-const oldProxyUrl = process.env.PROXY_SERVER;
-const newProxyUrl = await proxyChain.anonymizeProxy(oldProxyUrl);
 
 const hostname = "https://aternos.org";
 
@@ -143,6 +139,9 @@ async function connect(id, req) {
     time = new Date();
 
   try {
+    const oldProxyUrl = process.env.PROXY_SERVER;
+    const newProxyUrl = await proxyChain.anonymizeProxy(oldProxyUrl);
+    
     browser = await puppeteer.launch({
       headless: true,
       executablePath: process.env.CHROME_BIN || null,
@@ -161,11 +160,11 @@ async function connect(id, req) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
-    await page.goto(startPage);
-
     await page.setUserAgent(UA);
     await page.setJavaScriptEnabled(true);
     await page.setDefaultNavigationTimeout(0);
+
+    await page.goto(startPage);
 
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
