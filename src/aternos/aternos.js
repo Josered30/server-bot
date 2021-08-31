@@ -140,15 +140,13 @@ async function connect(id, req) {
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--proxy-server=socks5://127.0.0.1:9050",
+   //     "--proxy-server=socks5://127.0.0.1:9050",
       ],
     });
 
     const page = await browser.newPage();
 
-    await page.setUserAgent(
-      "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
-    );
+    await page.setUserAgent(userAgent.toString());
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(startPage);
