@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import stealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
-import randomUserAgent from "random-useragent";
+import UserAgent from "user-agents";
 
 puppeteer.use(stealthPlugin());
 
@@ -133,27 +133,23 @@ async function connect(id, req) {
   let browser,
     info,
     time = new Date();
+  const userAgent = new UserAgent();
 
-
-
-    
   try {
     browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--proxy-server=socks5://127.0.0.1:9050",
+      ],
     });
 
     const page = await browser.newPage();
 
-    await page.setUserAgent(randomUserAgent.getRandom());
+    await page.setUserAgent(userAgent.toString());
     await page.setViewport({ width: 1920, height: 1080 });
 
-
-  
-  
-    
     await page.goto(startPage);
-
-    await page.screenshot({ path: "screenshot.png" });
 
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
