@@ -144,7 +144,18 @@ async function connect(id, req) {
       ],
     });
 
+    const browser2 = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
     const page = await browser.newPage();
+    const page2 = await browser2.newPage();
+
+    await page.goto("https://api.ipify.org");
+    await page2.goto("https://api.ipify.org");
+
+    console.log(await page.content());
+    console.log(await page2.content());
 
     await page.setUserAgent(userAgent.toString());
     await page.setViewport({ width: 1920, height: 1080 });
