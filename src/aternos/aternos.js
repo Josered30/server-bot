@@ -149,6 +149,7 @@ async function connect(id, req) {
 
     await page.screenshot({ path: "screenshot.png" });
 
+    
     await page.type("#user", process.env.ATERNOS_USER);
     await page.type("#password", process.env.ATERNOS_PASSWORD);
     await page.click("#login");
