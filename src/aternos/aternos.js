@@ -1,9 +1,9 @@
 import puppeteer from "puppeteer-extra";
 import stealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getText, isVisible, waitForFirst } from "./puppeteer-helper.js";
+import userAgent from "user-agent";
 
 puppeteer.use(stealthPlugin());
-
 
 const hostname = "https://aternos.org";
 
@@ -140,6 +140,7 @@ async function connect(id, req) {
     });
 
     const page = await browser.newPage();
+    await page.setUserAgent(userAgent.toString());
     await page.setViewport({ width: 1920, height: 1080 });
 
     await page.goto(startPage);
